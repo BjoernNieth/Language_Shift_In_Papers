@@ -1,0 +1,9 @@
+seed = 0b01000010_01001100_01000101_01010011_01010011_01000101_01000100
+v1_from = "2005-01-01"          # first and last v1 date, both included
+v1_until = "2026-10-31"         # 2026 ends with October (the harvest ends there)
+papers_per_field_year = 1000     # LaTeX papers per field and year: the download goes down the ranked
+                                # candidates (PDF-only ones are skipped) until it has this many
+
+# Fields are whole arXiv groups, by a paper's *primary* category (cross-lists don't count).
+# All of cs, physics and math (decided 2026-11-24; physics as in Liang et al. 2024's estimate).
+fields = ["cs", "physics", "math"]

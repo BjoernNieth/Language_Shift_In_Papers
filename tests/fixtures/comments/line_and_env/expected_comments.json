@@ -1,0 +1,8 @@
+[["line", "\\begin{document}", 2],
+ ["line", " a note", 5],
+ ["line", " not text", 6],
+ ["line", "", 7],
+ ["line", " whole line", 9],
+ ["env", "hidden $x\n", 11],
+ ["env", "draft text\n", 15],
+ ["line", " \\begin{comment}", 18]]

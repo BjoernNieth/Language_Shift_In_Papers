@@ -15,10 +15,17 @@ Amro's master project (2026) was a pilot on this question (Biber features + MMD 
 - **Bonus – Comments:** LaTeX comments are never published, so leftover prompts or LLM output there is direct evidence. Cheap to scan.
 
 ## Design
-- **Corpus:** arXiv LaTeX sources, stratified sample of ~500 papers per field per year, 2018–2026, **v1 only** (revisions of old papers may be LLM-edited later). Downloaded one by one through the arXiv API at the allowed rate (~15–18k papers ≈ one night). Existing corpora (RedPajama-arXiv, unarXive) stop around 2023 or strip comments and LaTeX.
-- **Fields** (by LLM use as in Liang et al. 2024): CS (`cs.CL`/`cs.LG`, high), physics (medium), math (low), plus possibly one field with little TikZ so far.
+- **Corpus:** arXiv LaTeX sources, stratified sample of 1000 papers per field per year (raised from 500 on 2026-11-24), 2005–2026 (extended from 2018–2026 on 2026-11-24 for a longer pre-LLM baseline), **v1 only** (revisions of old papers may be LLM-edited later). Downloaded one by one through the arXiv API at the allowed rate (66 field-years × 1000 = 66k LaTeX papers ≈ 2–3 days, ≈ 280 GB at one request per second). Existing corpora (RedPajama-arXiv, unarXive) stop around 2023 or strip comments and LaTeX.
+- **Fields** (by LLM use as in Liang et al. 2024): CS (high), physics (medium), math (low), each the whole arXiv group by primary category (decided 2026-11-24; subfield mix is controlled in the analysis), plus possibly one field with little TikZ so far.
 - **Features:**
-  - Prose: LaTeX → plain text (drop math, citations, floats), the Biber feature set from the EMNLP 2026 paper, fixed-length chunks.
+  - Prose: LaTeX → plain text, the Biber feature set from the EMNLP 2026 paper, fixed-length chunks.
+    Parsing decisions (2026-11-19): inline math → placeholder word; `\cite`/`\ref` → placeholder words
+    (keeps sentences grammatical for the POS-based features); text after `\appendix` is cut; floats are
+    dropped from the prose, their captions go to a separate field (may be combined with prose later).
+    Revised 2026-11-23: captions are dropped too (no separate field); the abstract and all main text are
+    kept; front matter (title, authors, affiliations, keywords) and headings are dropped; footnotes go
+    into the text as a paragraph after the one they belong to. Prose is cut into consecutive windows of
+    whole sentences (>400 words, cap 440, as in the EMNLP 2026 paper); a last shorter window is dropped.
   - TikZ: prevalence and count, TikZ vs. `\includegraphics`, code length; second stage: style features (comments, `\tikzset`/`every node/.style`, libraries, coordinate precision).
   - Math: environment and macro counts per 1k tokens.
 - **Analysis:**
@@ -47,8 +54,8 @@ Amro's master project (2026) was a pilot on this question (Biber features + MMD 
 ## To discuss with Emmanuelle
 - Is this the right "safe" paper for ACL, compared with the Biber-guided writing agent (with Jan)?
 - Authorship, and how to credit Amro's pilot.
-- Fields: which physics category; add a field with little TikZ?
-- Is ~500 papers per field-year enough, or more for the TikZ analysis?
+- Fields: add a field with little TikZ? (Physics: all of physics by primary category, decided 2026-11-24.)
+- ~~Is ~500 papers per field-year enough?~~ Raised to 1000 per field-year (2026-11-24).
 
 ## Key references
 - Liang et al. 2024, *Mapping the Increasing Use of LLMs in Scientific Papers* (COLM). Field-level LLM-use estimates; numbers to be checked.

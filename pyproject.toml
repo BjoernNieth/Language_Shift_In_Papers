@@ -1,0 +1,33 @@
+[project]
+name = "language-shift-in-papers"
+version = "0.1.0"
+description = "Has AI changed how papers are written? Register, TikZ and math in arXiv LaTeX sources"
+requires-python = ">=3.12"  # tarfile extraction filters
+dependencies = [
+    "en-core-web-sm",
+    "en-core-web-trf",
+    "polars<2",
+    "pybiber>=0.3.1",
+    "pylatexenc>=2.11",
+    "spacy>=3.8.18",
+]
+
+[dependency-groups]
+dev = [
+    "ipykernel>=7.4.0",
+    "jupyterlab>=4.6.6",
+    "matplotlib>=3.11.2",
+    "pandas>=3.1.1",
+    "pytest>=9.2.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/language_shift"]
+
+[tool.uv.sources]
+en-core-web-sm = { url = "https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl" }
+en-core-web-trf = { url = "https://github.com/explosion/spacy-models/releases/download/en_core_web_trf-3.8.0/en_core_web_trf-3.8.0-py3-none-any.whl" }

@@ -1,0 +1,6 @@
+[["iffalse", " hidden ", 1],
+ ["iffalse", " x ", 2],
+ ["iffalse", " dropped ", 3],
+ ["iffalse", " outer \\ifx\\a\\b inner \\fi still hidden ", 4],
+ ["iffalse", " \\newif\\ifdraft nope ", 5],
+ ["iffalse", " \\ifthenelse{1}{2}{3} gone ", 6]]
